@@ -1,4 +1,4 @@
-Project title: ??? 
+Project title: Internet Discussion Board 
 Name: Mandeep Sran, Min-Ho Choi, Tala Abua
 ID: 150368680, 170813020, 151676480
 Statement: We claim that the enclosed project submission is our team work.
