@@ -1,22 +1,20 @@
 # CP476 Project: Internet Discussion Board
 
-## Project Proposal Template
-
 Mandeep Sran, Min-Ho Choi, Tala Abua
 
 2021-03-22
 
 ## 1. Introduction
 
-The Internet Discussion Board (called IDB from here on out) is a web application written in ReactJS, NodeJS, ExpressJS and MongoDB providing users an opportunity to interact with one another. The app aims to provide anyone who be re-used and setup with their own database/server to host and create their own discussion board as a general all in one use template. Simplicity and lightweight yet nice to look at is the aim of the final product.
+The Internet Discussion Board (called IDB from here on out) is a web application written in ReactJS, NodeJS, ExpressJS and MongoDB providing users an opportunity to interact with one another. The app aims to provide anyone who be re-used and setup with their own database/server to host and create their own discussion board as a general all-in-one use template. Simple, lightweight, yet nice to look at is the aim of the final product.
 
 ## 2. Problem Solving and Algorithms
 
-The IDB will be broken up into problems categorized under Database, Backend Architechture and Design
+The IDB will be broken up into problems categorized under Database, Backend Architechture and Design.
 
-Database: Storing users, storing posts of users, relationally storing which post has which subcomments, user data
+Database: Storing users, storing posts of users, relationally storing which post has which subcomments, user data.
 
-Backend Architechture: REST endpoints and organization of CRUD operations, how to move around our data for each user efficiently without loading everything, deploying backend
+Backend Architechture: REST endpoints and organization of CRUD operations, how to move around our data for each user efficiently without loading everything, deploying backend.
 
 Design: A clean and simple design for any devices which also looks pleasing.
 
