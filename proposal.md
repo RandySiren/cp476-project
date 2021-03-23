@@ -20,7 +20,7 @@ Design: A clean and simple design for any devices which also looks pleasing.
 
 ## 3. System Design
 
-As stated above, we will be using React.js for the front-end with AJAX for communicating with the backend, Node.js with the Express.js web framework as our backend server and MongoDb for our database. The following picture describes how these components will be interacting with each other.
+As stated above, we will be using React.js for the front-end with AJAX for communicating with the backend, Node.js with the Express.js web framework as our backend server and MongoDB for our database. The following picture describes how these components will be interacting with each other.
 
 ![Architecture](images/architecture.png)
 
