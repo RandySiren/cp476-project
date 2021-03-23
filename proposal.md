@@ -20,7 +20,7 @@ Design: A clean and simple design for any devices which also looks pleasing.
 
 ## 3. System Design
 
-![Architecture](images/architecture.png){width=600px}
+![Architecture](images/architecture.png)
 
 ## 4. Milestones & Schedule
 
