@@ -24,7 +24,7 @@ As stated above, we will be using React.js for the front-end with AJAX for commu
 
 ![Architecture](images/architecture.png)
 
-Users will be able to create discussion boards and comments that can be seen publically. These will be rendered by React.js. All requests will be sent to the server through AJAX where the requests will be processed. Once a request has been received, the backend powered by Node.js and Express.js queries MongoDB for reading/writing the appropriate data and processes the result to send back to the client where they can interact with the content as they see fit. 
+Users will be able to create discussion boards and comments that can be seen publically. These will be rendered by React.js. All requests will be sent to the server through AJAX where the requests will be processed. Once a request has been received, the backend powered by Node.js and Express.js queries MongoDB for reading/writing the appropriate data and processes the result to send back to the client where they can interact with the content as they see fit.
 
 ## 4. Milestones & Schedule
 

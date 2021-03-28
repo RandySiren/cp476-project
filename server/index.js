@@ -3,9 +3,11 @@ import cors from 'cors'
 import path from 'path'
 import dotenv from 'dotenv'
 import helmet from 'helmet'
-import routeHandler from './routes/index.js'
 import chalk from 'chalk'
 import connect from './connection.js'
+
+import userRouteHandler from './routes/user.js'
+import postsRouteHandler from './routes/posts.js'
 
 const app = express()
 
@@ -18,9 +20,13 @@ app.use(cors())
 app.use(helmet())
 app.set('port', process.env.PORT)
 app.set('db-uri', process.env.DB_URI)
+
+// Connect to database
 connect(app.get('db-uri'))
 
-app.use(routeHandler)
+// Routes for back-end and auth
+app.use('/user', userRouteHandler)
+app.use('/posts', postsRouteHandler)
 
 app.listen(app.get('port'), () => {
   console.log('%s App is running on port %d', chalk.green('✓'), app.get('port'))
