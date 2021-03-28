@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+<body>
+  
+<div id="root"></div>
+
+<script type="text/babel">
+	class RegisterForm extends React.Component{
+		constructor(props){
+			super(props);
+			this.state = {inputs: {}, error:""};		
+		}
+		getName= (event)=>{
+			this.state.inputs.name = event.target.value;
+		}
+		getUser= (event)=>{
+			this.state.inputs.username = event.target.value;
+		}
+		getPass= (event)=>{
+			this.state.inputs.password = event.target.value;
+		}
+		getConfirm= (event)=>{
+			this.state.inputs.confirm = event.target.value;
+		}
+		
+		
+		checkInput= ()=>{
+			let input = this.state.inputs;
+			let isValid=true;
+			if(!input.confirm){
+				isValid=false;
+				this.setState({error : "Enter the password again!"})
+			}
+			
+			if(!input.password){
+				isValid=false;
+				this.setState({error : "Enter a password!"})
+			}
+			if(input.password && input.confirm && input.confirm!=input.password){
+				isValid=false;
+				this.setState({error : "Passwords do not match!"})			
+			}
+			if(!input.name){
+			  isValid = false;
+			  this.setState({error : "Enter a name!"})
+			}
+			if(!input.username){
+			  isValid = false;
+			  this.setState({error : "Enter a username!"})
+			}
+			else{
+				var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+				if (!pattern.test(input.username)) {
+				  isValid = false;
+					this.setState({error : "Enter a valid email!"})				
+				}
+			}
+			return isValid;
+		}
+		
+		register = (event)=>{
+			event.preventDefault();
+			if(this.checkInput()){
+				this.setState({error:""});
+				let self = this;
+				var xhttp = new XMLHttpRequest();
+				var query;
+				query = ``
+				xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+				
+				xhttp.onload = function () {
+					if (this.readyState == 4 && this.status == 200) {
+						this.state.error=xhttp.responseText;
+					}else if(this.readyState == 4 && this.status == 400){
+						this.state.error = xhttp.responseText;
+					}
+				}
+
+				xhttp.open("POST", query, true);
+				xhttp.send(`email=${this.props.username}?password=${this.props.password}`);
+			}
+		}
+		render(){
+			return(
+				<div>
+                <h2>{this.state.error}</h2>
+                <form onSubmit={this.register}>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>Email</td>
+                                <td><input type='text' size="10" onChange={this.getUser} /> </td>
+                            </tr>
+                            <tr>
+                                <td>Name</td>
+                                <td><input type='text' size="10" onChange={this.getName} /> </td>
+                            </tr>							
+							
+                            <tr>
+                                <td>Password</td>
+                                <td><input type='password' size="10" onChange={this.getPass} /> </td>
+                            </tr>
+							<tr>
+                                <td>Confirm Password</td>
+                                <td><input type='password' size="10" onChange={this.getConfirm} /> </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <input type='submit' value='Login' />
+                </form>
+                </div>
+			);
+		}
+	}
+	ReactDOM.render(<RegisterForm />, document.getElementById('root'));
+</script>
+
+</body>
+</html>
