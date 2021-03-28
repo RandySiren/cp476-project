@@ -8,42 +8,44 @@
 <div id="root"></div>
 
 <script type="text/babel">
-	class loginForm extends React.Component{
+	class LoginForm extends React.Component{
 		constructor(props){
 			super(props);
 			this.state = {error:""};		
 		}
 		
-		getUser(event){
+		getUser= (event)=>{
 			this.props.username = event.target.value;
 		}
-		getPass(event){
+		getPass= (event)=>{
 			this.props.password = event.target.value;
 		}
 		
-		checkInput(){
-			isValid=true;
+		checkInput= ()=>{
+			let isValid=true;
 			if(!this.props.password){
+			console.log("Password")
 				isValid=false;
-				this.state[error] = "Enter a password!";
+				this.setState({error : "Enter a password!"})
 			}
 			if(!this.props.username){
 			  isValid = false;
-			  this.state[error] = "Enter a username!";
+			  this.setState({error : "Enter a username!"})
 			}
 			else{
 				var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
 				if (!pattern.test(this.props.username)) {
 				  isValid = false;
-				  this.state[error] = "Enter a valid email!";
+					this.setState({error : "Enter a valid email!"})				
 				}
 			}
 			return isValid;
 		}
 		
-		login(event){
-			if(checkInput()){
+		login= (event)=>{
 				event.preventDefault();
+		
+			if(this.checkInput()){
 				let self = this;
 				var xhttp = new XMLHttpRequest();
 				var query;
@@ -52,9 +54,9 @@
 				
 				xhttp.onload = function () {
 					if (this.readyState == 4 && this.status == 200) {
-						this.state[error]=xhttp.responseText;
+						this.state.error=xhttp.responseText;
 					}else if(this.readyState == 4 && this.status == 400){
-						this.state[error] = xhttp.responseText;
+						this.state.error = xhttp.responseText;
 					}
 				}
 
@@ -63,8 +65,9 @@
 			}
 		}
 		render(){
-			return<div>
-                <h2>{this.state.out}</h2>
+			return(
+				<div>
+                <h2>{this.state.error}</h2>
                 <form onSubmit={this.login}>
                     <table>
                         <tbody>
@@ -81,8 +84,10 @@
                     <input type='submit' value='Login' />
                 </form>
                 </div>
+			);
 		}
 	}
+	ReactDOM.render(<LoginForm />, document.getElementById('root'));
 </script>
 
 </body>
