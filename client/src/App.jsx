@@ -1,20 +1,19 @@
 import React from 'react'
-import axios from 'axios'
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
+import Signup from './pages/Signup'
+import Login from './pages/Login'
+import Home from './pages/Home'
+import { getSession } from './util/auth'
 
 const App = () => {
-  const handleSubmit = async () => {
-    console.log('clicked')
-    try {
-      await axios.get('http://localhost:8080/')
-    } catch (error) {
-      console.log(error)
-    }
-  }
   return (
-    <div>
-      <h1>Hello World!</h1>
-      <button onClick={handleSubmit}>Hello</button>
-    </div>
+    <Router>
+      <Switch>
+        <Route path='/signup' exact render={() => (getSession() ? <Redirect to='/' /> : <Signup />)} />
+        <Route path='/login' exact render={() => (getSession() ? <Redirect to='/' /> : <Login />)} />
+        <Route path='/' render={() => (getSession() ? <Home /> : <Redirect to='/login' />)} />
+      </Switch>
+    </Router>
   )
 }
 

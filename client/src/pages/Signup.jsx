@@ -6,7 +6,7 @@ import { Typography, TextField, Link as MaterialLink, Box, Snackbar } from '@mat
 import { Alert } from '@material-ui/lab'
 import deepOrange from '@material-ui/core/colors/deepOrange'
 import commonColor from '@material-ui/core/colors/grey'
-import { postLogin } from '../api/auth.js'
+import { postSignup } from '../api/auth.js'
 
 const theme = createMuiTheme({
   palette: {
@@ -34,7 +34,8 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(3),
   },
 }))
-const Login = () => {
+
+const Signup = () => {
   const classes = useStyles(theme)
   const [fail, setFail] = useState(false)
   let history = useHistory()
@@ -42,21 +43,27 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      await postLogin({
+      let response = await postSignup({
         email: e.target.email.value,
+        name: e.target.name.value,
         password: e.target.password.value,
       })
-      history.push('/')
+      if (response.status === 201) {
+        history.push('/login')
+      } else {
+        setFail(true)
+      }
     } catch (err) {
       setFail(true)
     }
   }
+
   return (
     <ThemeProvider theme={theme}>
       <div>
         <Navbar authed={false} />
         <Container component='main' maxWidth='sm' className={classes.paper}>
-          <Typography variant='h4'>Log In</Typography>
+          <Typography variant='h4'>Sign Up</Typography>
           <form className={classes.form} onSubmit={handleSubmit}>
             <Grid container direction='column' justify='center' alignItems='stretch' spacing={4}>
               <Grid item xs={12} sm={12}>
@@ -69,6 +76,17 @@ const Login = () => {
                   type='email'
                   id='email'
                   label='E-mail'
+                />
+              </Grid>
+              <Grid item xs={12} sm={12}>
+                <TextField
+                  autoComplete='name'
+                  name='name'
+                  variant='outlined'
+                  required
+                  fullWidth
+                  id='name'
+                  label='Name'
                 />
               </Grid>
               <Grid item xs={12} sm={12}>
@@ -87,14 +105,14 @@ const Login = () => {
             </Grid>
             <Grid container justify='center' spacing={4}>
               <Button type='submit' fullWidth variant='contained' color='primary' className={classes.submit}>
-                Log In
+                Register
               </Button>
               <Box m={2} />
             </Grid>
             <Grid container justify='flex-end'>
               <Grid item>
-                <MaterialLink component={Link} to='/signup' variant='body2'>
-                  Don't have an account? Sign Up
+                <MaterialLink component={Link} to='/login' variant='body2'>
+                  Already have an account? Log In
                 </MaterialLink>
               </Grid>
             </Grid>
@@ -107,7 +125,7 @@ const Login = () => {
               onClose={() => setFail(false)}
             >
               <Alert onClose={() => setFail(false)} severity='error'>
-                Invalid login information.
+                Failed to sign up, please try again.
               </Alert>
             </Snackbar>
           ) : (
@@ -119,4 +137,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default Signup
