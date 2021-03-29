@@ -6,9 +6,12 @@ const SECRET = 'ABCDXYZ'
 export const login = async (req, res) => {
   const { email, password } = req.body
   const user = await User.findOne({ email: email })
+  if (!user) {
+    return res.status(400).json({ error: 'Invalid login information' })
+  }
   await user.comparePassword(password, (err, same) => {
     if (err) return res.status(400).json({ error: err })
-    if (!same) return res.status(400).json({ error: 'Invalid password' })
+    if (!same) return res.status(400).json({ error: 'Invalid login information' })
     const token = jwt.sign({ email: user.email, id: user._id }, SECRET, { expiresIn: '6h' })
     return res.status(200).json({ result: user, token })
   })
