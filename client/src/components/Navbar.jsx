@@ -1,9 +1,10 @@
 import React from 'react'
 import AppBar from '@material-ui/core/AppBar'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { makeStyles, createMuiTheme, ThemeProvider, Button, Toolbar, Typography } from '@material-ui/core'
 import deepOrange from '@material-ui/core/colors/deepOrange'
 import commonColor from '@material-ui/core/colors/grey'
+import { logout } from '../util/auth.js'
 
 const theme = createMuiTheme({
   palette: {
@@ -35,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Pricing = (props) => {
   const classes = useStyles(theme)
+  let history = useHistory()
 
   const noAuthLinks = () => {
     return (
@@ -49,6 +51,19 @@ const Pricing = (props) => {
     )
   }
 
+  const authLinks = () => {
+    return (
+      <>
+        <Button component={Link} color='secondary' variant='text' to='/profile' className={classes.link}>
+          My Account
+        </Button>
+        <Button color='secondary' variant='text' className={classes.link} onClick={() => logout(history)}>
+          Logout
+        </Button>
+      </>
+    )
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <AppBar position='static' color='primary'>
@@ -56,23 +71,7 @@ const Pricing = (props) => {
           <Typography variant='h4' color='secondary' noWrap className={classes.toolbarTitle}>
             {'> weboard.'}
           </Typography>
-          <nav>
-            {props.authed ? (
-              <>
-                <Link variant='button' color='textPrimary' href='' className={classes.link}>
-                  Features
-                </Link>
-                <Link variant='button' color='textPrimary' href='#' className={classes.link}>
-                  Enterprise
-                </Link>
-                <Link variant='button' color='textPrimary' href='#' className={classes.link}>
-                  Support
-                </Link>
-              </>
-            ) : (
-              noAuthLinks()
-            )}
-          </nav>
+          <nav>{props.authed ? authLinks() : noAuthLinks()}</nav>
         </Toolbar>
       </AppBar>
     </ThemeProvider>
