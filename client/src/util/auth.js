@@ -15,6 +15,7 @@ export const getSession = () => {
   return session
 }
 
-export const logout = () => {
+export const logout = (history) => {
   Cookies.remove('__session')
+  history.push('/login')
 }
