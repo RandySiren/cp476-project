@@ -38,6 +38,7 @@ const Home = () => {
     <ThemeProvider theme={theme}>
       <div>
         <Navbar authed={true} />
+        <p>Test</p>
       </div>
     </ThemeProvider>
   )
