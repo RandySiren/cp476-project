@@ -3,6 +3,13 @@ import User from '../models/User.js'
 
 const SECRET = 'ABCDXYZ'
 
+export const getUserByID = async (req, res) => {
+  const { id } = req.params
+  const user = await User.findById(id)
+  if (!user) return res.status(400).json({ error: `No user found by ID: ${id}` })
+  return res.status(200).json(user)
+}
+
 export const login = async (req, res) => {
   const { email, password } = req.body
   const user = await User.findOne({ email: email })
@@ -20,7 +27,7 @@ export const login = async (req, res) => {
 export const signup = async (req, res) => {
   const { email, password, name } = req.body
   const user = new User({ email, password, name })
-  await user.save((err, doc) => {
+  user.save((err, doc) => {
     if (err) {
       return res.status(400).json({ error: err })
     }
