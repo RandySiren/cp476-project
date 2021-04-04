@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import Navbar from '../components/Navbar'
-import { Link, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { Container, Grid, makeStyles, createMuiTheme, ThemeProvider, Button } from '@material-ui/core'
-import { Typography, TextField, Link as MaterialLink, Box, Snackbar } from '@material-ui/core'
+import { Typography, TextField, Box, Snackbar } from '@material-ui/core'
 import { Alert } from '@material-ui/lab'
 import deepOrange from '@material-ui/core/colors/deepOrange'
 import commonColor from '@material-ui/core/colors/grey'
-import { postSignup } from '../api/auth.js'
+import { postCreatePost } from '../api/post.js'
 
 const theme = createMuiTheme({
   palette: {
@@ -34,22 +34,20 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(3),
   },
 }))
-
-const Signup = () => {
+const CreatePost = () => {
   const classes = useStyles(theme)
   const [fail, setFail] = useState(false)
   let history = useHistory()
 
-  const handleSubmit = async (e) => {
+  const handlePost = async (e) => {
     e.preventDefault()
     try {
-      let response = await postSignup({
-        email: e.target.email.value,
-        name: e.target.name.value,
-        password: e.target.password.value,
+      let response = await postCreatePost({
+        title: e.target.title.value,
+        content: e.target.content.value,
       })
-      if (response.status === 201) {
-        history.push('/login')
+      if (response.status === 200) {
+        history.push(`/posts/${response.data.result}`)
       } else {
         setFail(true)
       }
@@ -61,61 +59,39 @@ const Signup = () => {
   return (
     <ThemeProvider theme={theme}>
       <Box>
-        <Navbar authed={false} />
-        <Container component='main' maxWidth='sm' className={classes.paper}>
-          <Typography variant='h4'>Sign Up</Typography>
-          <form className={classes.form} onSubmit={handleSubmit}>
+        <Navbar authed={true} />
+        <Container component='main' maxWidth='md' className={classes.paper}>
+          <Typography variant='h4'>Create Post</Typography>
+          <form className={classes.form} onSubmit={handlePost}>
             <Grid container direction='column' justify='center' alignItems='stretch' spacing={4}>
               <Grid item xs={12} sm={12}>
                 <TextField
-                  autoComplete='email'
-                  name='email'
+                  autoComplete='title'
+                  name='title'
                   variant='outlined'
                   required
                   fullWidth
-                  type='email'
-                  id='email'
-                  label='E-mail'
+                  id='title'
+                  label='Enter Title'
                 />
               </Grid>
               <Grid item xs={12} sm={12}>
                 <TextField
-                  autoComplete='name'
-                  name='name'
+                  autoComplete='content'
+                  name='content'
                   variant='outlined'
                   required
                   fullWidth
-                  id='name'
-                  label='Name'
-                />
-              </Grid>
-              <Grid item xs={12} sm={12}>
-                <TextField
-                  autoComplete='password'
-                  name='password'
-                  variant='outlined'
-                  required
-                  fullWidth
-                  id='password'
-                  label='Password'
-                  type='password'
+                  id='content'
+                  multiline
+                  rows='10'
                 />
               </Grid>
               <Grid item></Grid>
             </Grid>
-            <Grid container justify='center' spacing={4}>
-              <Button type='submit' fullWidth variant='contained' color='primary' className={classes.submit}>
-                Register
-              </Button>
-              <Box m={2} />
-            </Grid>
-            <Grid container justify='flex-end'>
-              <Grid item>
-                <MaterialLink component={Link} to='/login' variant='body2'>
-                  Already have an account? Log In
-                </MaterialLink>
-              </Grid>
-            </Grid>
+            <Button type='submit' style={{ width: '200px' }} variant='contained' color='primary'>
+              Create Post
+            </Button>
           </form>
           {fail ? (
             <Snackbar
@@ -125,7 +101,7 @@ const Signup = () => {
               onClose={() => setFail(false)}
             >
               <Alert onClose={() => setFail(false)} severity='error'>
-                Failed to sign up, please try again.
+                Failed to create post.
               </Alert>
             </Snackbar>
           ) : (
@@ -137,4 +113,4 @@ const Signup = () => {
   )
 }
 
-export default Signup
+export default CreatePost

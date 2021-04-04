@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { Link } from 'react-router-dom'
 import {
   makeStyles,
   createMuiTheme,
@@ -8,9 +9,9 @@ import {
   Typography,
   CardHeader,
   Box,
+  Link as MaterialLink,
 } from '@material-ui/core'
 import deepOrange from '@material-ui/core/colors/deepOrange'
-import commonColor from '@material-ui/core/colors/grey'
 
 const theme = createMuiTheme({
   palette: {
@@ -18,7 +19,7 @@ const theme = createMuiTheme({
       main: deepOrange[500],
     },
     secondary: {
-      main: commonColor[50],
+      main: '#000000',
     },
   },
   typography: {
@@ -27,16 +28,18 @@ const theme = createMuiTheme({
 })
 const useStyles = makeStyles((theme) => ({
   root: {
-    paddingBottom: '2px'
+    paddingBottom: '2px',
   },
 }))
 
-const PostItem = ({ title, author, date }) => {
+const PostItem = ({ id, title, author, date }) => {
   const classes = useStyles(theme)
   return (
     <ThemeProvider theme={theme}>
       <Card variant='outlined'>
-        <CardHeader className={classes.root} title={title}></CardHeader>
+        <MaterialLink color='secondary' component={Link} underline='none' to={`/posts/${id}`}>
+          <CardHeader className={classes.root} title={title}></CardHeader>
+        </MaterialLink>
         <Box display='flex' justifyContent='flex-end'>
           <CardContent>
             <Typography className={classes.title} variant='body2' color='textSecondary'>

@@ -53,7 +53,7 @@ const Login = () => {
   }
   return (
     <ThemeProvider theme={theme}>
-      <div>
+      <Box>
         <Navbar authed={false} />
         <Container component='main' maxWidth='sm' className={classes.paper}>
           <Typography variant='h4'>Log In</Typography>
@@ -114,7 +114,7 @@ const Login = () => {
             <></>
           )}
         </Container>
-      </div>
+      </Box>
     </ThemeProvider>
   )
 }

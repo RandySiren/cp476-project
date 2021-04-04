@@ -1,7 +1,15 @@
 import React from 'react'
 import AppBar from '@material-ui/core/AppBar'
 import { Link, useHistory } from 'react-router-dom'
-import { makeStyles, createMuiTheme, ThemeProvider, Button, Toolbar, Typography } from '@material-ui/core'
+import {
+  makeStyles,
+  createMuiTheme,
+  ThemeProvider,
+  Button,
+  Toolbar,
+  Typography,
+  Link as MaterialLink,
+} from '@material-ui/core'
 import deepOrange from '@material-ui/core/colors/deepOrange'
 import commonColor from '@material-ui/core/colors/grey'
 import { logout } from '../util/auth.js'
@@ -68,8 +76,8 @@ const Pricing = (props) => {
     <ThemeProvider theme={theme}>
       <AppBar position='static' color='primary'>
         <Toolbar className={classes.toolbar}>
-          <Typography variant='h4' color='secondary' noWrap className={classes.toolbarTitle}>
-            {'> weboard.'}
+          <Typography variant='h4' noWrap className={classes.toolbarTitle}>
+            <MaterialLink color='secondary' component={Link} underline='none' to='/'>{'> weboard.'}</MaterialLink>
           </Typography>
           <nav>{props.authed ? authLinks() : noAuthLinks()}</nav>
         </Toolbar>
