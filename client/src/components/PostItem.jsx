@@ -9,6 +9,7 @@ import {
   Typography,
   CardHeader,
   Box,
+  Button,
   Link as MaterialLink,
 } from '@material-ui/core'
 import deepOrange from '@material-ui/core/colors/deepOrange'
@@ -32,8 +33,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const PostItem = ({ id, title, author, date }) => {
+const PostItem = ({ id, title, author, date, showDelete, onDelete }) => {
   const classes = useStyles(theme)
+
   return (
     <ThemeProvider theme={theme}>
       <Card variant='outlined'>
@@ -51,6 +53,21 @@ const PostItem = ({ id, title, author, date }) => {
               {date}
             </Typography>
           </CardContent>
+          {showDelete ? (
+            <CardContent style={{ padding: '10px' }}>
+              <Button
+                variant='outlined'
+                color='secondary'
+                style={{ fontFamily: 'monospace', padding: '3px' }}
+                className={classes.createPost}
+                onClick={() => onDelete(id)}
+              >
+                Delete
+              </Button>
+            </CardContent>
+          ) : (
+            <></>
+          )}
         </Box>
       </Card>
     </ThemeProvider>

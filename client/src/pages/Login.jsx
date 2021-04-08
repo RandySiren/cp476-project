@@ -38,7 +38,6 @@ const Login = () => {
   const classes = useStyles(theme)
   const [fail, setFail] = useState(false)
   let history = useHistory()
-
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {

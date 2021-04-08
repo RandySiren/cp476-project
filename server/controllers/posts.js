@@ -19,7 +19,10 @@ export const getPostByID = async (req, res) => {
 }
 
 export const getPostsByUserID = async (req, res) => {
-  const { id } = req.params
+  let { id } = req.params
+  if (id === 'me') {
+    id = req.userId.id
+  }
   const posts = await Post.find({ author: id })
   if (!posts) {
     return res.status(400).json({ error: `No posts found by user ID: ${id}` })

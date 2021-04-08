@@ -7,7 +7,6 @@ import { Box } from '@material-ui/core'
 import deepOrange from '@material-ui/core/colors/deepOrange'
 import commonColor from '@material-ui/core/colors/grey'
 import { getPosts } from '../api/post.js'
-import { getUserByID } from '../api/user.js'
 import dayjs from 'dayjs'
 
 const theme = createMuiTheme({
