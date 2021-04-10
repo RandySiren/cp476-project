@@ -4,7 +4,7 @@
 
 We used React.js to design the frontend
 
-![Screen shot demo (image caption)](images/client_side_ui.png){width=600px} 
+![Screen shot demo (image caption)](images/client_side_ui.png)
 
 ## 2.2 Server side CGI components
 
@@ -16,6 +16,7 @@ The backend also takes requests for posts and serves them to the front-end.
 
 We used MongoDB for the database. We have 2 tables
 In one of the tables we store the users' information. This table contains the user's name, their email, their id, an array of their posts, their hashed password and the salt that was used to generate that password. We use this table to authenticate the users when they try to login and to list the posts that a user has created.
+
 In another table we store the posts. This table contains the post's id, the title, body paragraph, timestamp, its author's name, its author's object from the first table and an array of comments. This array of comments also contains its timestamp, body paragraph, and the author's name and author object. We use this table to store user posts and the comments on this post and to retrieve them to display to the user.
 
 ## 2.4 New Features and Tools
