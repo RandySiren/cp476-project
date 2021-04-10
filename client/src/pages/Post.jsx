@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar'
-import PostItem from '../components/PostItem'
-import { Link, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import {
   Container,
-  Grid,
   makeStyles,
   createMuiTheme,
   ThemeProvider,
@@ -100,7 +98,9 @@ const Post = () => {
         <Navbar authed={true} />
         <Container component='main' maxWidth='md' className={classes.paper}>
           <Typography variant='h4'>{post.title}</Typography>
-          <Typography color='secondary' variant='body2'>{post.authorName + ' - ' + dayjs(post.date).format('DD/MM/YYYY')}</Typography>
+          <Typography color='secondary' variant='body2'>
+            {post.authorName + ' - ' + dayjs(post.date).format('DD/MM/YYYY')}
+          </Typography>
           <Container className={classes.post}>
             <Typography variant='body1'>{post.content}</Typography>
           </Container>
