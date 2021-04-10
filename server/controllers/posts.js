@@ -56,3 +56,25 @@ export const deletePost = async (req, res) => {
     return res.status(204).json({})
   })
 }
+
+export const createComment = async (req, res) => {
+  const { content } = req.body
+  const { id } = req.params
+  const post = await Post.findById(id)
+  if (!post) return res.status(400).json({ error: 'Could not find post to create comment' })
+  const user = await User.findById(req.userId.id)
+  if (!user) return res.status(400).json({ error: 'Could not find user to create comment' })
+  const comment = {
+    author: user,
+    authorName: user.name,
+    date: Date.now(),
+    content,
+  }
+  post.comments.push(comment)
+  post.save((err) => {
+    if (err) {
+      return res.status(400).json({ error: err })
+    }
+    return res.status(200).json({result: 'Success'})
+  })
+}

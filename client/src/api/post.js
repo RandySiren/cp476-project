@@ -11,6 +11,10 @@ export const postCreatePost = (post) => {
   return apiInstance.post(`/create`, post)
 }
 
+export const postCreateComment = (id, comment) => {
+  return apiInstance.post(`/id/${id}/create`, {content: comment})
+}
+
 export const getPosts = () => {
   return apiInstance.get(``)
 }
@@ -20,10 +24,8 @@ export const getPostByID = (id) => {
 }
 
 export const getPostsByUserID = (id) => {
-  if (id)
-    return apiInstance.get(`/user/${id}`)
-  else
-    return apiInstance.get(`/user/me`)
+  if (id) return apiInstance.get(`/user/${id}`)
+  else return apiInstance.get(`/user/me`)
 }
 
 export const deletePost = (id) => {

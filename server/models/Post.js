@@ -1,5 +1,4 @@
 import mongoose from 'mongoose'
-import Comment from './Comment.js'
 
 const postSchema = new mongoose.Schema({
   author: {
@@ -28,8 +27,25 @@ const postSchema = new mongoose.Schema({
   },
   comments: [
     {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Comment',
+      author: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true,
+        trim: true,
+      },
+      authorName: {
+        type: String,
+        required: true,
+      },
+      date: {
+        type: Date,
+        required: true,
+      },
+      content: {
+        type: String,
+        required: true,
+        trim: true,
+      },
     },
   ],
 })
